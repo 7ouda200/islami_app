@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islami_app/tabs/sura_details.dart';
 
 class quran extends StatefulWidget {
   const quran({super.key});
@@ -195,9 +196,18 @@ class _quranState extends State<quran> {
                       ),
                     ),
                     child: Center(
-                      child: Text(
-                        'عدد الايات',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                      child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          return Text(
+                            '${index+1}',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          );
+                        },
+                        itemCount: 114,
+                        separatorBuilder: (context, index) => SizedBox(
+                          height: 2,
+                        ),
                       ),
                     ),
                   ),
@@ -219,7 +229,11 @@ class _quranState extends State<quran> {
                       child: ListView.separated(
                         itemBuilder: (context, index) {
                           return InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                  sura_screen.routeName,
+                                  arguments: sura_args(index, name[index]));
+                            },
                             child: Text(
                               name[index],
                               textAlign: TextAlign.center,
